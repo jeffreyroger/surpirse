@@ -28,7 +28,7 @@
     <script>
         const music = document.getElementById("bgMusic");
 
-        // Fade in music volume
+        // Autoplay music with fade-in
         function autoPlayMusic() {
             const playPromise = music.play();
             if (playPromise !== undefined) {
@@ -44,7 +44,7 @@
                         }
                     }, 100);
                 }).catch(() => {
-                    console.log("Autoplay blocked, user interaction may be required.");
+                    console.log("Autoplay blocked: user interaction may be required.");
                 });
             }
         }

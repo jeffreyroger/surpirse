@@ -85,8 +85,8 @@ body {
 
 <div class="polaroid-container">
     {% for img in images %}
-    <div class="polaroid" onclick="openLightbox('{{ url_for('static', filename='polaroids/' ~ img) }}')">
-        <img src="{{ url_for('static', filename='polaroids/' ~ img) }}">
+    <div class="polaroid" onclick="openLightbox('{{ url_for('static', filename='polaroids/' + img) }}')">
+        <img src="{{ url_for('static', filename='polaroids/' + img) }}">
         <div class="caption">{{ img.split('.')[0].replace('_',' ').title() }} ✨</div>
     </div>
     {% endfor %}
