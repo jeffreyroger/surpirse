@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our Timeline ❤️</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: radial-gradient(circle at top, #ffe1ec, #ffd6e8, #ffeef6);
+            padding: 40px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #c9184a;
+            margin-bottom: 25px;
+            font-size: 42px;
+            font-weight: 700;
+            text-shadow: 0 3px 10px rgba(255, 100, 150, 0.3);
+            animation: fadeDown 1.2s ease;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Floating gradient hearts */
+        .heart {
+            position: fixed;
+            bottom: -20px;
+            font-size: 22px;
+            opacity: 0.7;
+            animation: floatUp 6s linear infinite;
+            background: linear-gradient(45deg, #ff4d79, #ff85a2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes floatUp {
+            0%   { transform: translateY(0); opacity: 0.8; }
+            100% { transform: translateY(-130vh); opacity: 0; }
+        }
+
+        /* Timeline line */
+        .timeline {
+            position: relative;
+            margin: 40px auto;
+            padding-left: 50px;
+            border-left: 4px solid #ff5c98;
+            max-width: 650px;
+            animation: fadeSlide 1.4s ease-out;
+        }
+
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Each event card */
+        .event {
+            position: relative;
+            background: white;
+            padding: 20px 25px;
+            margin: 30px 0;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            animation: fadeCard 1.2s ease;
+        }
+
+        @keyframes fadeCard {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Timeline dot */
+        .event::before {
+            content: "";
+            position: absolute;
+            left: -16px;
+            top: 28px;
+            width: 18px;
+            height: 18px;
+            background: radial-gradient(circle, #ff2d6b, #ff5c98);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(255, 80, 130, 0.7);
+        }
+
+        h3 {
+            margin-top: 0;
+            font-size: 22px;
+            color: #d6336c;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        /* Future Memory Box */
+        .future {
+            margin-top: 60px;
+            padding: 25px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #fff3fa, #ffe6ef);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            animation: fadeCard 1.5s ease;
+        }
+
+        .future h2 {
+            text-align: center;
+            color: #d6336c;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .future ul {
+            font-size: 18px;
+            line-height: 1.7;
+            color: #444;
+        }
+
+        /* Back button */
+        a {
+            color: #ffffff;
+            background: #ff5c8a;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin: 40px auto 0;
+            width: 120px;
+            font-weight: 600;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(255, 92, 138, 0.3);
+        }
+
+        a:hover {
+            transform: translateY(-3px);
+            background: #ff2d6b;
+            box-shadow: 0 6px 18px rgba(255, 60, 110, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Our Journey So Far ❤️</h1>
+
+    <div class="timeline">
+
+        <div class="event">
+            <h3>🌟 The Day We First Talked</h3>
+            <p>U were crying because your dress was stolen 😂. Apro i sat beside you. Though it was our first time seeing or talking irl, it felt sooo natural. Like it's meant to be heheh</p>
+        </div>
+
+        <div class="event">
+            <h3>❤️ The Day I Fell in Love</h3>
+            <p>DEC 10, i saw your smile and i fell 😂.</p>
+        </div>
+
+        <div class="event">
+            <h3>💖 First Date</h3>
+            <p>We went to a mall for our first day, though I didn't even plan where to go until kavini told me 😂. I still remember how we walked the mall holding each other. The best!</p>
+        </div>
+
+        <div class="event">
+            <h3>😂 Funniest Moment</h3>
+            <p>Ithuku enna vida nee than correct ah solluva neeye enkitta sollu 😂</p>
+        </div>
+
+    </div>
+
+    <div class="future">
+        <h2>💞 Future Memories to Come 💞</h2>
+        <ul>
+            <li>A trip we’ll take together to Switzerland✈️</li>
+            <li>A movie night you’ll fall asleep in my arms 🎬</li>
+            <li>A surprise date I’ll plan for you 💐</li>
+            <li>A place where we’ll take our cutest photo with our three lil wildlings 📸</li>
+            <li>Our next anniversary — and many more 💝</li>
+        </ul>
+    </div>
+
+    <a href="/">⬅ Back</a>
+
+    <!-- Floating hearts -->
+    <script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = (18 + Math.random() * 25) + "px";
+            heart.style.animationDuration = (4 + Math.random() * 3) + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 8000);
+        }
+
+        setInterval(createHeart, 500);
+    </script>
+
+</body>
+</html>

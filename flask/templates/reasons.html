@@ -1,0 +1,334 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    background: linear-gradient(135deg, #ffe3f1, #fff0f8);
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 30px auto;
+    padding: 26px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 34px rgba(0,0,0,0.25);
+    border: 2px solid rgba(255, 170, 200, 0.3);
+    animation: fadeIn 0.8s ease;
+  }
+
+  @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    text-align:center;
+    color:#ff3d85;
+    margin-top:0;
+    font-size: 32px;
+    font-weight: 800;
+    text-shadow: 0 0 8px rgba(255, 60, 120, 0.4);
+  }
+
+  /* Input Row */
+  .input-row {
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    margin-bottom:20px;
+  }
+
+  .input-row input {
+    flex:1;
+    max-width:520px;
+    padding:14px 16px;
+    border-radius:12px;
+    border:1px solid rgba(255, 70, 120, 0.25);
+    background: white;
+    color:#222;
+    outline:none;
+    font-size:16px;
+    transition:0.2s;
+  }
+
+  .input-row input:focus {
+    border-color:#ff5c8a;
+    box-shadow:0 0 12px rgba(255,100,150,0.35);
+  }
+
+  .input-row button {
+    padding:12px 18px;
+    border-radius:12px;
+    border:0;
+    background:#ff5c8a;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.2s;
+    font-weight:600;
+  }
+
+  .input-row button:hover {
+    transform: scale(1.03);
+    background:#ff4679;
+  }
+
+  /* Reason Items */
+  .reasons-list {
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .reason-item {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    border-radius:12px;
+    background: white;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    border-left: 5px solid #ff5c8a;
+    animation: fadeUp 0.4s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(10px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+
+  .reason-text {
+    font-size:17px;
+    color:#333;
+    font-weight:500;
+    max-width:76%;
+    line-height:1.4;
+    word-wrap:break-word;
+  }
+
+  .reason-actions {
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+
+  .btn-heart {
+    font-size:22px;
+    background:transparent;
+    border:0;
+    color:#ff3d85;
+    cursor:pointer;
+    transition:0.2s;
+  }
+
+  .btn-heart:hover {
+    transform: scale(1.2);
+  }
+
+  .btn-delete {
+    background:#333;
+    color:#fff;
+    border:0;
+    padding:8px 12px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.2s;
+  }
+
+  .btn-delete:hover {
+    background:#000;
+    transform: scale(1.05);
+  }
+
+  .empty {
+    text-align:center;
+    color:#666;
+    padding:18px 0;
+    font-size:18px;
+  }
+
+  /* Confetti + Floating Hearts */
+  .confetti, .floating-heart {
+    position:fixed;
+    pointer-events:none;
+    z-index:9999;
+  }
+
+  .confetti {
+    width:8px; height:8px; opacity:0.95;
+    border-radius:50%;
+    animation: confettiFall 1200ms linear forwards;
+  }
+
+  .floating-heart {
+    font-size:24px;
+    color:#ff4c92;
+  }
+
+  @keyframes confettiFall {
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+      opacity:0;
+    }
+  }
+
+  @media (max-width:640px){
+    .input-row { flex-direction:column; }
+    .input-row button { width:100%; }
+  }
+</style>
+
+<div class="wrap">
+  <h2>💗 Reasons Why I Love You</h2>
+
+  <div class="input-row">
+    <input id="reasonInput" placeholder="Add a reason (e.g. 'Your smile')" />
+    <button id="addBtn">Add</button>
+  </div>
+
+  <div id="reasonsList" class="reasons-list">
+
+    <!-- starter reasons -->
+    <div class="reason-item">
+      <div class="reason-text">Your cute little nose ❤️</div>
+      <div class="reason-actions">
+        <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+        <button class="btn-delete" onclick="removeReason(this)">✕</button>
+      </div>
+    </div>
+
+    <div class="reason-item">
+      <div class="reason-text">Your bekuness 😂</div>
+      <div class="reason-actions">
+        <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+        <button class="btn-delete" onclick="removeReason(this)">✕</button>
+      </div>
+    </div>
+
+    <div class="reason-item">
+      <div class="reason-text">The way you make me laugh 😄</div>
+      <div class="reason-actions">
+        <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+        <button class="btn-delete" onclick="removeReason(this)">✕</button>
+      </div>
+    </div>
+
+    <div class="reason-item">
+      <div class="reason-text">Your smile 🙂</div>
+      <div class="reason-actions">
+        <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+        <button class="btn-delete" onclick="removeReason(this)">✕</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="emptyMsg" class="empty" style="display:none;">
+    No reasons yet — add one and make her smile 💕
+  </div>
+</div>
+
+<script>
+  const input = document.getElementById('reasonInput');
+  const addBtn = document.getElementById('addBtn');
+  const list = document.getElementById('reasonsList');
+  const emptyMsg = document.getElementById('emptyMsg');
+
+  addBtn.addEventListener('click', () => handleAdd());
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAdd(); });
+
+  function handleAdd(){
+    const text = input.value.trim();
+    if(!text) return;
+    addReasonItem(text, true);
+    input.value = '';
+    showEmptyIfNeeded();
+  }
+
+  function addReasonItem(text, withConfetti=false){
+    const item = document.createElement('div');
+    item.className = 'reason-item';
+    item.innerHTML = `
+      <div class="reason-text">${escapeHtml(text)}</div>
+      <div class="reason-actions">
+        <button class="btn-heart" onclick="toggleHeart(this)">♡</button>
+        <button class="btn-delete" onclick="removeReason(this)">✕</button>
+      </div>
+    `;
+    list.prepend(item);
+
+    if(withConfetti) {
+      burstConfettiAt(window.innerWidth/2, 180);
+    }
+  }
+
+  function toggleHeart(btn){
+    if(btn.innerText === '♡'){
+      btn.innerText = '❤️';
+      btn.style.transform = 'scale(1.2)';
+      floatHeart(btn);
+    } else {
+      btn.innerText = '♡';
+      btn.style.transform = 'scale(1)';
+    }
+  }
+
+  function removeReason(btn){
+    const item = btn.closest('.reason-item');
+    item.remove();
+    showEmptyIfNeeded();
+  }
+
+  function showEmptyIfNeeded(){
+    emptyMsg.style.display = list.children.length === 0 ? 'block' : 'none';
+  }
+
+  function burstConfettiAt(x,y){
+    const colors = ['#ff9db3','#ffd1a9','#fff6c8','#bfe7f9','#ffc4dd'];
+    for(let i=0;i<20;i++){
+      const el = document.createElement('div');
+      el.className = 'confetti';
+      el.style.left = (x + (Math.random()*160 - 80)) + 'px';
+      el.style.top = (y + (Math.random()*50 - 25)) + 'px';
+      el.style.background = colors[Math.floor(Math.random()*colors.length)];
+      document.body.appendChild(el);
+      setTimeout(()=> el.remove(), 1500);
+    }
+  }
+
+  function floatHeart(btn){
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.innerText = '❤️';
+    const rect = btn.getBoundingClientRect();
+    heart.style.left = rect.left + rect.width/2 + 'px';
+    heart.style.top = rect.top + 'px';
+    document.body.appendChild(heart);
+
+    const endX = rect.left + (Math.random()*60 - 30);
+    const endY = rect.top - 180 - Math.random()*50;
+
+    heart.animate([
+      { transform: `translate(0,0) scale(1)`, opacity:1 },
+      { transform: `translate(${endX - rect.left}px, ${endY - rect.top}px) scale(1.6)`, opacity:0 }
+    ], {
+      duration: 1300,
+      easing: 'ease-out'
+    });
+
+    setTimeout(()=> heart.remove(), 1300);
+  }
+
+  function escapeHtml(text){
+    return text.replace(/[&<>"']/g, c => ({
+      '&':'&amp;', '<':'&lt;', '>':'&gt;',
+      '"':'&quot;', "'":'&#39;'
+    }[c]));
+  }
+
+  showEmptyIfNeeded();
+</script>
+
+{% endblock %}

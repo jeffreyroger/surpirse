@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+body {
+    background: linear-gradient(145deg, #fff0f7, #ffe6f2);
+    font-family: 'Arial', sans-serif;
+}
+h1 {
+    text-align: center;
+    color: #d6336c;
+    font-size: 38px;
+    margin-top: 40px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+.menu {
+    max-width: 500px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.menu a {
+    text-decoration: none;
+    background: #ff5c8a;
+    color: white;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 18px;
+    text-align: center;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+.menu a:hover {
+    background: #ff85a2;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+</style>
+
+<h1>💞 Happy 6 Month Anniversary babyyyy 💞</h1>
+
+<div class="menu">
+    <a href="/timeline">📅 Our Timeline</a>
+    <a href="/gallery">📸 Gallery</a>
+    <a href="/love-letter">💌 Love Letter</a>
+    <a href="/surprise">🎁 Surprise</a>
+    <a href="/typing-love">✨ Floating 'I Love You'</a>
+    <a href="/fireworks">🎆 Fireworks</a>
+    <a href="/polaroids">🖼 Polaroid Photos</a>
+    <a href="/reasons">💗 Reasons Why I Love You</a>
+    <a href="/secret">🔐 Secret Page</a>
+</div>
+
+{% endblock %}

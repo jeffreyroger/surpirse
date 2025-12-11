@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.quiz-box {
+    width: 70%;
+    margin: auto;
+    background: #ffe6ef;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    animation: fadeIn 1s ease;
+}
+
+.question {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #c9184a;
+}
+
+.option {
+    background: white;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.option:hover {
+    transform: scale(1.03);
+    border-color: #ff8fa3;
+    background: #fff4f7;
+}
+
+#nextBtn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: #ff4d6d;
+    border: none;
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: none;
+}
+
+#nextBtn:hover {
+    background: #c9184a;
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9);}
+    to { opacity: 1; transform: scale(1);}
+}
+</style>
+
+<div class="quiz-box">
+    <h1 style="text-align:center; color:#c9184a;">💖 Love Quiz</h1>
+
+    <div id="quizArea"></div>
+
+    <form id="resultForm" action="/quiz/result" method="POST">
+        <input id="scoreInput" name="score" type="hidden" value="0">
+    </form>
+
+    <button id="nextBtn" onclick="nextQuestion()">Next</button>
+</div>
+
+<script>
+let questions = {{ questions|tojson }};
+let index = 0;
+let score = 0;
+
+function loadQuestion() {
+    let q = questions[index];
+    document.getElementById("quizArea").innerHTML = `
+        <div class='question'>${q.q}</div>
+        ${q.options.map(opt => `
+            <div class='option' onclick='selectAnswer("${opt}")'>${opt}</div>
+        `).join("")}
+    `;
+}
+
+function selectAnswer(selected) {
+    let correct = questions[index].answer;
+    if (selected === correct) score++;
+
+    document.getElementById("nextBtn").style.display = "block";
+
+    document.querySelectorAll(".option").forEach(o => {
+        o.style.pointerEvents = "none"; 
+        if (o.innerText === correct) {
+            o.style.background = "#caffbf";
+            o.style.borderColor = "#70e000";
+        } else if (o.innerText === selected) {
+            o.style.background = "#ffb3c1";
+            o.style.borderColor = "#ff4d6d";
+        }
+    });
+}
+
+function nextQuestion() {
+    index++;
+    if (index >= questions.length) {
+        document.getElementById("scoreInput").value = score;
+        document.getElementById("resultForm").submit();
+        return;
+    }
+    document.getElementById("nextBtn").style.display = "none";
+    loadQuestion();
+}
+
+loadQuestion();
+</script>
+
+{% endblock %}

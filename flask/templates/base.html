@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        body.loaded {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body onload="document.body.classList.add('loaded'); autoPlayMusic();">
+
+    <!-- Background music -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="{{ url_for('static', filename='assets/music.mp3') }}" type="audio/mpeg">
+    </audio>
+
+    {% block content %}{% endblock %}
+
+    <script>
+        const music = document.getElementById("bgMusic");
+
+        // Fade in music volume
+        function autoPlayMusic() {
+            const playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    music.volume = 0;
+                    let v = 0;
+                    const fade = setInterval(() => {
+                        if (v < 1) {
+                            v += 0.05;
+                            music.volume = v;
+                        } else {
+                            clearInterval(fade);
+                        }
+                    }, 100);
+                }).catch(() => {
+                    console.log("Autoplay blocked, user interaction may be required.");
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>

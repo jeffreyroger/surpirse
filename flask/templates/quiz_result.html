@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.result-box {
+    width: 60%;
+    margin: auto;
+    background: #ffe6ef;
+    padding: 30px;
+    border-radius: 18px;
+    text-align:center;
+    animation: fadeIn 1s ease;
+}
+
+.big-score {
+    font-size: 60px;
+    color: #c9184a;
+    font-weight: bold;
+}
+
+.love-msg {
+    font-size: 30px;
+    margin-top: 10px;
+    color: #d6336c;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+</style>
+
+<div class="result-box">
+    <h1>💘 Your Score</h1>
+    <div class="big-score">{{ score }}/5</div>
+
+    {% if score == 5 %}
+        <div class="love-msg">Perfect! Just like you ❤️</div>
+    {% elif score >= 3 %}
+        <div class="love-msg">You know me so well 😘</div>
+    {% else %}
+        <div class="love-msg">Aww it's okay, I still love you 💗</div>
+    {% endif %}
+</div>
+
+{% endblock %}
