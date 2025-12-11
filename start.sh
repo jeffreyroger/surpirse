@@ -1,5 +1,4 @@
 #!/bin/bash
-# Make sure Python is installed and virtualenv dependencies are installed
-pip install -r requirements.txt
-# Start the Flask app
-python couple.py
+export FLASK_APP=couple.py
+export FLASK_ENV=production
+flask run --host=0.0.0.0 --port=$PORT
