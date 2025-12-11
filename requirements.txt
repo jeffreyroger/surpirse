@@ -1,2 +1,2 @@
-python==3.12.10
 Flask==2.3.4
+gunicorn==21.2.0
